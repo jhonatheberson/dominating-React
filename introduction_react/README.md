@@ -151,3 +151,63 @@ também modificamos nossos arquivo **package.json** e colocando script:
   </body>
   </html>
   ```
+
+  ## Importando CSS:
+
+  vamos adicionar rules no arquivo **webpack.config.js** dessa forma:
+
+  ```
+  const path = require('path');
+
+  module.export = {
+    entry: path.resolve(__dirname, 'src', 'index.js'),
+    devServer: {
+      contentBase: path.resolve(__dirname, 'public'),
+    },
+    output: {
+      filename: 'main.js',
+      path: path.resolve(__dirname, 'dist'),
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          },
+        }, {
+          test: /\.css$/,
+          use: [
+            {loader : 'style-loader'}, //importar arquivo css para dentro do aquivo html com tag <style>
+            {loader : 'css-loader'}, //entendar importação de dentro de um arquivo css
+          ]
+        }
+      ],
+    },
+  };
+  ```
+
+  e vamos criar nosso arquivo CSS **/src/App.css** que ficou assim:
+
+  ```
+  body {
+    background: #7159c1;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  ```
+
+  e por fim para funcionar precisamos importar esse arquivo CSS dentro do **/src/App.js**
+
+  assim:
+
+  ```
+  import React from 'react';
+import './App.css';
+
+function App(){
+  return <h1>Hello World</h1>
+}
+export default App;
+  ```

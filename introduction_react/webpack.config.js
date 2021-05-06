@@ -17,7 +17,13 @@ module.export = {
         use: {
           loader: 'babel-loader',
         },
-      },
+      }, {
+        test: /\.css$/,
+        use: [
+          {loader : 'style-loader'}, //importar arquivo css para dentro do aquivo html com tag <style>
+          {loader : 'css-loader'}, //entendar importação de dentro de um arquivo css
+        ]
+      }
     ],
   },
 };
