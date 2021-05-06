@@ -1,5 +1,5 @@
 # Introdution React
-  - Configurando Estrutura:
+  ## Configurando Estrutura:
 
     nesse topico vamos criar a estrutura padrão de um projeto react
 
@@ -108,3 +108,46 @@ também modificamos nossos arquivo **package.json** e colocando script:
 }
 
 ```
+
+  ## Criando componente raiz:
+
+  precisamos criar um arquivo chamado **/src/App.js**
+  com seguinte conteudo:
+
+  ```
+  import React from 'react';
+
+  function App(){
+    return <h1>Hello World</h1>
+  }
+  export default App;
+  ```
+
+  e vamos alterar o arquivo **/src/index.js** importando nosso primeiro componente.
+
+  ```
+  import React from 'react';
+  import { render } from 'react-dom';
+
+  import App from '../src/App';
+
+  render(<App />, document.getElementById('app'));
+  ```
+
+  e por fim vamos chamar nosso componente no **index.html** usando a *div* dessa forma:
+
+  ```
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React JS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="../dist/main.js"></script>
+  </body>
+  </html>
+  ```
