@@ -211,3 +211,36 @@ também modificamos nossos arquivo **package.json** e colocando script:
   }
   export default App;
   ```
+
+  ## Importando imagens:
+
+  para isso precisamos instalar a depencian que possibilidade isso:
+
+  ```
+  yarn add file-loader -D
+  ```
+
+  e vamos adiconar nova rule no aruqivo **/webpack.config.js** assim:
+
+  ```
+  {
+    test: /.*\.(gif|png|jpe?g)$/i,
+    use:{
+      loader: 'file-loader'
+    }
+  }
+  ```
+
+  agora vamos importar no arquivo **/src/App.js**
+
+  ```
+  import React from 'react';
+
+  import profile from './assets/profile.png'
+
+  function App(){
+    return <h1>Hello World</h1>
+    return <img width="200" src={profile} />;
+  }
+  export default App;
+  ```

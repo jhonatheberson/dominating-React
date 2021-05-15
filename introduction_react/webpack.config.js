@@ -23,6 +23,11 @@ module.export = {
           {loader : 'style-loader'}, //importar arquivo css para dentro do aquivo html com tag <style>
           {loader : 'css-loader'}, //entendar importação de dentro de um arquivo css
         ]
+      }, {
+        test: /.*\.(gif|png|jpe?g)$/i,
+        use:{
+          loader: 'file-loader'
+        }
       }
     ],
   },
