@@ -244,3 +244,91 @@ também modificamos nossos arquivo **package.json** e colocando script:
   }
   export default App;
   ```
+
+  ## Class Components:
+
+  Vamos criar uma pasta **/src/components**
+
+  criando uma arquivo **TechList.js** dentro da pasta components:
+
+  ```
+  import React, { Component } from 'react'
+
+
+  class TechList extends Component{
+    render(){
+      return (
+        <ul>
+          <li> Node.js</li>
+          <li>React.JS</li>
+          <li>React Native</li>
+        </ul>
+      )
+    }
+  }
+  ```
+
+  agora vamos importar nosso componente dentro de **App.js**
+
+  ```
+  import React from 'react';
+
+  // import profile from './assets/profile.png'
+
+  import TechList from './components/TechList'
+
+  function App(){
+    return <TechList />
+    // return <h1>Hello World</h1>
+    // return <img width="200" src={profile} />;
+  }
+  export default App;
+  ```
+
+  agora vamos instalar um plugins que fez que não precise fazer um constructor para informar o *state*
+
+  ```
+    yarn add @babel/plugin-proposal-class-properties -D
+  ```
+agora no arquivo **./babel.config.js** vamos adicionar esse plugin:
+
+```
+module.exports = {
+  presets: [
+    "@babel/preset-env", //transforma novas funcionalidades do javascript que o navegador ainda não entende como import, export, classes
+    "@babel/preset-react" //transforma o que o navegador não entende do react, como js
+  ],
+  plugins : [
+    '@babel/plugin-proposal-class-properties'
+  ]
+};
+```
+
+agora vamos adiconar o *state* ao componente **TechList.js**
+
+```
+import React, { Component } from 'react'
+
+
+class TechList extends Component{
+  state = {
+    techs : [
+        'Node.js',
+        'React.JS',
+        'React Native'
+    ]
+  };
+
+  render(){
+    return (
+      <ul>
+        <li> Node.js</li>
+        <li>React.JS</li>
+        <li>React Native</li>
+      </ul>
+    )
+  }
+}
+```
+
+
