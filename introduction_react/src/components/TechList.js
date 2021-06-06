@@ -1,6 +1,8 @@
 import { isThisSecond } from 'date-fns';
 import React, { Component } from 'react'
 
+import TechItem from './TechItem';
+
 
 class TechList extends Component{
   state = {
@@ -36,15 +38,11 @@ class TechList extends Component{
         <h1>{this.state.newTech}</h1>
         <ul>
           {this.state.techs.map((tech) => (
-            <li key={tech}>
-              {tech}
-              {/* //precisamos abri areon */}
-              <button onClick={() => this.HandleDelete(tech)} type="button">
-                Remover
-              </button>
-              {/* //fucntion () para ele ececutar apenas quando clicar no botão e
-              não quando renderizar */}
-            </li> //key é para especificar e dizer ao react qual variavel estou mudando, ou referenciando
+            <TechItem 
+            key={tech} 
+            tech={tech}  
+            onDelete={() =>this.HandleDelete} />
+            // passando propriedades tech={tech}
           ))}
         </ul>
         <input
