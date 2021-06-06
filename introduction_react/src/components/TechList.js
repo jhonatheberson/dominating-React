@@ -26,13 +26,25 @@ class TechList extends Component{
     //ṕara alterar preciso copiar tudo que estava antes e adicionar ou excluir o que quero
   }
 
+  HandleDelete = (tech) => {
+    this.setState({ techs: this.state.techs.filter(t => t !== tech)}) //retorna toddas as tecnologias menos a que estou passando como parametro
+  }
+
   render(){
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>{this.state.newTech}</h1>
         <ul>
           {this.state.techs.map((tech) => (
-            <li key={tech}>{tech}</li> //key é para especificar e dizer ao react qual variavel estou mudando, ou referenciando
+            <li key={tech}>
+              {tech}
+              {/* //precisamos abri areon */}
+              <button onClick={() => this.HandleDelete(tech)} type="button">
+                Remover
+              </button>
+              {/* //fucntion () para ele ececutar apenas quando clicar no botão e
+              não quando renderizar */}
+            </li> //key é para especificar e dizer ao react qual variavel estou mudando, ou referenciando
           ))}
         </ul>
         <input
