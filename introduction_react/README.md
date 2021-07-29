@@ -672,3 +672,7 @@ class TechList extends Component{
     //usado por exemplo "eventListen" ouve teclado limpa sujeira 
   }
   ```
+
+  # Debugando React com DevTolls
+
+  install extensão [DevTolls](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
