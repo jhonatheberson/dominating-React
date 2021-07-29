@@ -675,4 +675,4 @@ class TechList extends Component{
 
   # Debugando React com DevTolls
 
-  install extensão [DevTolls](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+  install extensão [react-developer-tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
