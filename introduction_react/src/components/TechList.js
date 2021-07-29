@@ -44,6 +44,7 @@ class TechList extends Component{
             onDelete={() =>this.HandleDelete} />
             // passando propriedades tech={tech}
           ))}
+          <TechItem />
         </ul>
         <input
           type="text"

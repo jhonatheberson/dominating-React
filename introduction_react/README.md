@@ -580,3 +580,60 @@ class TechList extends Component{
     }
   }
   ```
+
+  ## Default Props & PropTypes
+
+    ### Default Props
+    ele preenche as propriedades cado não seja passado pelo usuario tanto de **funções** como de **classe**
+
+    ```
+    TechItem.defaultProps = {
+      tech: "Oculto"
+    }
+    ```
+
+    para classe:
+    ```
+    static ProTypes = {
+
+    }
+    ```
+
+
+    ### PropTypes
+
+    Ela informa para o desenvolvedor queestá passando uma propriedade que não está correto.
+
+    para isso vamos instalar a biblioteca **PropTypes**
+
+    ```
+    yarn add prop-types
+    ```
+
+    vamos importar no file **TechItem.js**  ficando dessa forma:
+
+
+    ```
+    import React from 'react';
+    import PropTypes from 'prop-types';
+
+    function TechItem({ tech, onDelete }) {
+      return ()
+        <li>
+          {tech}
+          <button onClick={onDelete} type="button">Remover</button>
+        </li>
+      );
+    }
+
+    TechItem.defaultProps = {
+      tech: "Oculto"
+    }
+
+    PropTypes.PropTypes = {
+      tech: PropTypes.string,
+      onDelete: PropTypes.func.isRequired
+    }
+
+    export default TechItem;
+    ```
