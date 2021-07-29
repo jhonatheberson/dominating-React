@@ -637,3 +637,38 @@ class TechList extends Component{
 
     export default TechItem;
     ```
+
+  ## Ciclo de vida de componentes
+
+  o ciclo de vida, para entender, criar, morrer, mudar, existe alguns componentes
+  as principais são:
+
+  ```
+  // Executado assim que o compoenente aparece em tela
+  componentDidMount() {
+    //exemplo busca de dados de uma api externa
+    //usado para cerragar o compoenete assim que inicializza
+    //localStorage é cache do navegador
+    const techs = localStorage.getItem('techs'); //pega o que tem
+
+    if (techs){ // verifica se tem algo em techs
+      this.setState({techs:JSON.parse(techs) });
+    }
+  }
+  // Executado sempre que ouver alterações nas props ou estado
+  // componentDidUpdate(_, prevState){
+  //monitorar compenentes e propriedades
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.techs !== this.state.techs){
+      //verifica se o anterio "prevState" está deferente de agora "state.techs"
+      localStorage.setItem('techs', JSON.stringify(this.state.techs));
+    }
+    // se tiver alteração nas propriedades, conseguimos acessar a novos  dados da propeiedades aqui
+    // this.props
+    // this.state
+  }
+  // Executado quando o componente deixa de existir
+  componentWillUnmount(){
+    //usado por exemplo "eventListen" ouve teclado limpa sujeira 
+  }
+  ```
