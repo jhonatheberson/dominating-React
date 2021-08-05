@@ -105,10 +105,28 @@ agora vamos linpar um pouco o prjeto retirando algumas coisas que não queremos:
   - index.js
   - reportWebVitals.js
 
-  para isso funcinar precisamos retirar as importações dentro de **index.js** vou retirar a importação do css 
+  para isso funcinar precisamos retirar as importações dentro de [index.js](https://github.com/jhonatheberson/dominating-reactjs/blob/master/primeiro_projeto_com_react/modulo05/src/index.js) vou retirar a importação do css 
 
   ```
   import './index.css';
+  ```
+
+  ficando dessa forma: 
+
+  ```
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import App from './App';
+  import reportWebVitals from './reportWebVitals';
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+
+  reportWebVitals();
   ```
 
   agora no **App.js** vou retirar as importanções
@@ -118,7 +136,7 @@ agora vamos linpar um pouco o prjeto retirando algumas coisas que não queremos:
   import './App.css';
   ```
 
-  no final meu arquivo [App.js](https://github.com/jhonatheberson/dominating-reactjs/tree/master/primeiro_projeto_com_react/modulo05/src/App.js) ficou assim:
+  no final meu arquivo [App.js](https://github.com/jhonatheberson/dominating-reactjs/blob/master/primeiro_projeto_com_react/modulo05/src/App.js) ficou assim:
 
 
   ```
