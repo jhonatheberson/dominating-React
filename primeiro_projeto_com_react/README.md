@@ -60,7 +60,7 @@ agora vamos linpar um pouco o prjeto retirando algumas coisas que não queremos:
 
   Aqui vamos retirar a configuração padrão do eslint porque vamos fazer a nossa, como preferimos.
 
-## [public]()
+## [public](https://github.com/jhonatheberson/dominating-reactjs/tree/master/primeiro_projeto_com_react/modulo05/public)
 
   Agora vou na pasta **public** e abrir arquivo inde.html e vou retirar os comentarios deixando de forma mais clean caso queira **opcional** 
 
@@ -75,7 +75,7 @@ agora vamos linpar um pouco o prjeto retirando algumas coisas que não queremos:
 
   e deletar o arquivo **public/manifest.json**
 
-  ## [src]()
+  ## [src](https://github.com/jhonatheberson/dominating-reactjs/tree/master/primeiro_projeto_com_react/modulo05/src)
 
   para editar nosso react precisamos ir no arquivo **App.js**
 
@@ -118,7 +118,7 @@ agora vamos linpar um pouco o prjeto retirando algumas coisas que não queremos:
   import './App.css';
   ```
 
-  no final meu arquivo [App.js](/src/App.js) ficou assim:
+  no final meu arquivo [App.js](https://github.com/jhonatheberson/dominating-reactjs/tree/master/primeiro_projeto_com_react/modulo05/src/App.js) ficou assim:
 
 
   ```
