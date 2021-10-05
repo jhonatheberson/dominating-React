@@ -281,3 +281,109 @@ agora vamos linpar um pouco o prjeto retirando algumas coisas que não queremos:
   ### OBS: prettier deixa codigo mais bonito e eslint procura por erros dentro do codigo.
 
 # Roteamento no React
+  simgle page application para usar isso vamos utilizar biblioteca **react-route-dom**
+  ,ou seja uma aplicação de uma unica pagina, nunca irá recarregar ao não ser que apertamos *F5*
+
+  para instalado baixa executar o comando abaixo:
+
+  ~~~bash
+  yarn add react-router-dom
+  ~~~
+
+  que é para fazer routeamento do front-end
+
+  primeiramente vamos criar o arquivo de rotas **/src/routes.js**
+
+  agora vamos criar uma pasta **src/pages**
+
+  dentro de **pages** vai ter inicialmente uma pasta **pages/Main** com arquivo *index.js* **/src/pages/Main/index.js**
+
+  também vou criar um pasta **/pages/Rpository** dentro dela também dera um arquivo **index.js**
+
+  ficando assim nossa estrura de diretorios no **pages**:
+
+  - pages
+    - Main
+      - index.js
+    - Repository
+      - index.js
+
+
+Vamos criar um roteamento mais simplex inicialmente:
+
+primerio de tudo vamos criar o que sra exibido na **/pages/Main/index.js**
+
+essa será nossa roda default **localhost:3000/**, dessa forma o conteudo da do arquivo ****/pages/Main/index.js**** está assim:
+
+~~~javascript
+import React from 'react';
+
+// import { Container } from './styles';
+
+function Main() {
+  return <h1>Main</h1>;
+}
+
+export default Main;
+~~~
+
+para criar essa estrutura default podemos utilizar o snippets da rockseat digitando **rfc** que significa r - react, f - function, c - component.
+
+da mesma forma o arquivo **/pages/Repository/index.js**
+
+essa roda será **localhost:3000/repository**, dessa forma o conteudo da do arquivo ****/pages/Main/index.js**** está assim:
+
+~~~javascript
+import React from 'react'
+
+export default function index() {
+  return (
+    <h1>Repository</h1>
+  )
+}
+~~~
+
+agora vamos adicionar nossas rotas no arquivo **routes.js** assim:
+
+~~~javascript
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
+import Main from './pages/Main';
+import Repository from './pages/Repository';
+
+    
+// o BrowserRouter faz que as rotas possa ser criadas ex: http://localhost:3000/repository
+//o Swith garente que seja chamado apenas um unico componente por vez 
+export default function Routes() {
+  return (
+    <BrowserRouter>
+      <Switch> 
+        <Route path="/" exact component={Main} />
+        <Route path="/repository" component={Repository} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+~~~
+
+### OBS: perceba que tem **exact**, porque para comparar com igualdade precisamos adicionar *exact* no componente para ele poder diferencia realmente, porque sem o *exact* vai ser verdade porque ele não vai olhar toda a roda, apenas o primeiro caractere e já retorna verdadeiro.
+
+agora para finalizar precisamos colocar as rotas para funcionar, indo no arquivo **src/App.js**
+
+e vamos importar o componente **Routes**
+
+~~~javascript
+import Routes from "./routes";
+
+function App() {
+  return (
+    <Routes />
+  );
+}
+
+export default App;
+~~~
+
+## Lembrando sempre que tudo em react são components
