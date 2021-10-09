@@ -536,3 +536,66 @@ export default App;
   ~~~
 
   estou acessando a propriedade **error** do component
+
+  # Estilos globaius
+
+  definindo estilos globais, esses estilos compartilhados, estylos de bory da aplicação.
+
+
+  para isso vamos criar pasta **/src/styles/**
+
+  em seguida vamos criar um arquivo **global.js**
+
+
+  ~~~javascrip
+  import { createGlobalStyle } from 'styled-components'
+
+  export default createGlobalStyle`
+    * {
+      margin: 0; /* removendo margin */
+      padding: 0; /* removendo padding */
+      outline: 0; /* removendo outline */
+      box-sizing: border-box; /* evita quebra de leyaout, os elementos fica somando, o conteudo é exprimido */
+    }
+
+    html, body, #root {
+      min-height: 100%; /* ocupando 100% da pagina */
+    }
+
+    body {
+      background: #7159c1;
+      -webkit-font-smoothing: antialiased ! important
+    }
+
+    body, input, button {
+      color: #222;
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  `;
+
+
+  ~~~
+
+  agora para aplicar essa estilização global precisamos colocar no arquivo **App.js** importando e adiconado o componente.
+
+  ~~~javascript
+  import Routes from "./routes";
+  import GlobalStyle from './styles/global';
+
+  function App() {
+    return (
+      <>
+        <Routes />
+        <GlobalStyle />
+      </>
+    );
+  }
+
+  export default App;
+  ~~~
+
