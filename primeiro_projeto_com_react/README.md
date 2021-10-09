@@ -387,3 +387,152 @@ export default App;
 ~~~
 
 ## Lembrando sempre que tudo em react são components
+
+# Styled components
+
+  essa biblioteca muda a forma como adicionamos e increvemos **CSS** em aplicações react e react-native
+
+  vamos adicionar uma biblioteca chamada **styled-component**
+
+
+  ~~~bash
+  yarn add styled-components
+  ~~~
+
+  agora vamos adicionar essa nova estilização no **Main/index.js**,
+  para utilizar estilização CSS default, precisamos colocar uma estilização em cada componente do HTML, tipo:
+
+  ~~~javascript
+  import CSS from fileCSS;
+
+  function Main() {
+    return <h1 className='stily'>Main</h1>;
+  }
+
+  export default Main;
+  ~~~
+
+  porém isso é problema quando a plicação é grande, está estilizando todo o h1, logo ele não está **escopado**, logo o **styled-component** resolve é todo CSS desse componente não será compartilhado, a não ser que o que queiramos.
+
+  para isso vamos criar uma arquivo **/src/pages/Main/styles.js**
+
+
+  vamos criar um component estilizado:
+
+
+  ~~~javascript
+    import styled from 'styled-components'
+
+    export const Title = styled.h1`
+      font-size: 24px;
+      color: #7159c1;
+      font-family: Arial, Helvetica, sans-serif;
+    `;
+  ~~~
+
+  agora para adicionar a estilização na main precisamo importa **styles.js** e adicionar o componente **Title**:
+
+
+
+
+  ~~~javascript
+    import React from 'react';
+
+    import { Title } from './styles';
+
+    function Main() {
+      return <Title>Main</Title>;
+    }
+
+    export default Main;
+  ~~~
+
+
+  ## Encadeamento de estilos
+
+  isso é para quando eu tenho por exemplo um estilização do componente **Title** que é **h1** e dentro dessa componente quero fazer outra estilização por exemplo do **small** para isso basta modificar um pouco fazendo as seguintes mudanças:
+
+  ~~~javascript
+    import styled from 'styled-components'
+
+    export const Title = styled.h1`
+      font-size: 24px;
+      color: #7159c1;
+      font-family: Arial, Helvetica, sans-serif;
+
+      small{
+        font-size: 14px; 
+        color: #333;
+      }
+    `;
+  ~~~
+
+  e mofiicando o **index.js**
+
+  ~~~javascript
+  import React from 'react';
+
+  import { Title } from './styles';
+
+  function Main() {
+    return (
+        <Title>
+          Main
+          <small>menor</small>
+        </Title>
+      );
+  }
+
+  export default Main;
+  ~~~
+
+  ## Utilizando funções para modificar estilizaçãoes
+
+  controlar propriedades do CSS com funções.
+  acessando propriedades dos elementos tipo assim:
+
+
+
+  ~~~javascript
+  import React from 'react';
+
+  import { Title } from './styles';
+
+  function Main() {
+  return (
+      <Title error={true}>
+        Main
+        <small>menor</small>
+      </Title>
+    );
+  }
+
+  export default Main;
+  ~~~
+
+  perceba o que mudou foi agora estou passando um valor chamado **error** como true.
+
+  e agora vou acessar esse alementos dentro do **styles.js**
+
+  ~~~javascript
+  import styled from 'styled-components'
+
+  export const Title = styled.h1`
+    font-size: 24px;
+    color: ${props => props.error ? 'red' : '#7159c1'};
+    font-family: Arial, Helvetica, sans-serif;
+
+    small{
+      font-size: 14px; 
+      color: #333;
+    }
+  `;
+  ~~~
+
+  perceb que aqui estou usando uma função poderia ser uma mais complexa
+
+  ~~~javascript
+  color: ${props => props.error ? 'red' : '#7159c1'};
+  ~~~
+
+  estou acessando a propriedade **error** do component
