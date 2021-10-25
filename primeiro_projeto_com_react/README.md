@@ -780,3 +780,256 @@ export default App;
   export default Main;
 
   ~~~
+
+  # Adicionando repositorios
+
+  Vamos no **MAin/index.js**, fazer mundança de function para class, e colocar o **states**, para assim poder fazer os metodos que irá manipular o states.
+
+  ficou assim, o codigo.
+
+  ~~~
+  import React, { Component } from 'react';
+
+  import { Container, Form, SubmitButton } from './styles';
+
+  import { FaGithubAlt, FaPlus } from 'react-icons/fa'
+
+  export default class Main extends Component {
+    state = {
+      newRepo: '',
+    };
+
+    handleInputChange = (e) => {
+      this.setState({ newRepo: e.target.value });
+    };
+
+    handleSubmit = (e) => {
+      e.preventDefault();
+
+      console.log(this.state.newRepo);
+    }
+
+    render() {
+      const { newRepo } = this.state;
+
+      return (
+        <Container>
+          <h1>
+            <FaGithubAlt />
+            Repositórios
+          </h1>
+
+          <Form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              placeholder="Adicionar repositório"
+              value={newRepo}
+              onChange={this.handleInputChange}
+            />
+
+            <SubmitButton>
+              <FaPlus color="#FFF" size={14} />
+            </SubmitButton>
+          </Form>
+        </Container>
+      );
+    }
+  }
+  ~~~  
+
+  agora vamos consumir a **API do Github**
+  para isso não vamos utlizar o *fatch*, porque ele nãao suportar uma *base_url*.
+
+
+  vamos utlizar uma biblioteca chamada de **axios** que vai consumir a API no react.
+
+  ~~~bash
+  yarn add axios  
+  ~~~  
+
+  agora vamos criar um pasta **services**,
+  dentro de src. ficando assim **/src/services/api.js**
+
+  o arquivo API, ficou assim:
+
+  ~~~javascript
+  import axios from 'axios'
+
+  const api = axios.create({
+    baseURL: 'https://api.github.com',
+  })
+
+  export default api;
+  ~~~
+
+
+  agora em **Main/index.js**, vamos importar **api**
+  e utilizar dessa forma:
+
+  ~~~javascript
+  const response = await api.get(`/repos/${newRepo}`)
+  ~~~
+
+  além disso, realizamos a animação de loading, usando **{keyframes, css}**
+  do *styled-components*, aplicamos condicionais, entre outras técnicas coomo pegar **props*
+  de compoenentes na estilização, nosso arquivo final ficou assim:
+
+
+  ~~~javascript
+  import styled, {keyframes, css} from 'styled-components'
+
+  export const Title = styled.h1`
+    color: #fff;
+    /* font-size: 24px;
+    color: ${props => props.error ? 'red' : '#7159c1'};
+    font-family: Arial, Helvetica, sans-serif;
+
+    small{
+      font-size: 14px; 
+      color: #333;
+    } */
+  `;
+  
+  export const Container = styled.div`
+    max-width: 700px; /*definindo largura maxima para conteiner */
+    background: #fff; /* cor de fundo branco*/
+    border-radius: 4px; /* a o radio de borda de 4px*/
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px; /*espaçamento interno de 30px */
+    margin: 80px auto; /* margem em cima de 80 px, e nas latereais como auto, assim ficando centralizado*/
+    
+    h1{
+      font-size: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center; /* ficar alinhado o texto e icons */
+    }
+    svg {
+      margin-right: 10px; /*espaçamento do icons com texto */
+    }
+  `;
+  export const Form = styled.form`
+    margin-top: 30px; /*margin de cima, para ficar com espaçamento do h1 para form */
+    display: flex; 
+    flex-direction: row; /*garente que o buton mais, e form fica um ao lado do outro */
+
+    input {
+      flex: 1; /*isso faz com que o form ocupe todo espaço possivel */
+      border: 1px solid #eee;
+      padding: 10px 15px; /* altura e largura de 10px e 15px */
+      border-radius: 4px; /*aredonda a borda do input */
+      font-size: 16px; /*tamanho da fonte */
+    }
+  `;
+
+  const rotate = keyframes`
+    from {
+      transform: rotate(0deg);
+    } to {
+      transform: rotate(360deg);
+    }
+  `;
+
+  // possopegar propriedades dos componentes também
+  export const SubmitButton = styled.button.attrs((props) => ({
+    type: 'submit',
+    disabled: props.loading,
+  }))`
+    background: #7159c1;
+    border: 0;
+    padding: 0 15px;
+    margin-left: 10px;
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*aqui a estilização vai ocorrer apenas quando estiver desabilitado*/
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    ${(props) =>
+      props.loading &&
+      css`
+        svg {
+          animation: ${rotate} 2s linear infinite;
+        }
+      `}
+  `;
+  ~~~
+
+  utilizei  icons **FaSpinner** para fazer o loading, index.js ficou assim:
+
+  ~~~javascript
+  import React, { Component } from 'react';
+  import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
+
+  import api from '../../services/api'
+
+  import { Container, Form, SubmitButton } from './styles';
+
+
+  export default class Main extends Component {
+    state = {
+      newRepo: '',
+      repositories: [],
+    };
+
+    handleInputChange = (e) => {
+      this.setState({ newRepo: e.target.value });
+    };
+
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
+      this.setState({ loading:true });
+
+      const { newRepo, repositories } = this.state;
+
+      const response = await api.get(`/repos/${newRepo}`)
+      console.log(response.data);
+
+      const data = {
+        name: response.data.full_name,
+      }
+
+      this.setState({ 
+        repositories: [...repositories, data],
+        newRepo:'',
+        loading:false,
+      });
+    }
+
+    render() {
+      const { newRepo, loading } = this.state;
+
+      return (
+        <Container>
+          <h1>
+            <FaGithubAlt />
+            Repositórios
+          </h1>
+
+          <Form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              placeholder="Adicionar repositório"
+              value={newRepo}
+              onChange={this.handleInputChange}
+            />
+
+            <SubmitButton loading={loading}>
+              { loading ? (<FaSpinner color="#FFF" size={14} />
+              ) : (
+                <FaPlus color='#FFF' sizee={14} />
+              )}
+            </SubmitButton>
+          </Form>
+        </Container>
+      );
+    }
+  }
+  ~~~

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes, css} from 'styled-components'
 
 export const Title = styled.h1`
   color: #fff;
@@ -43,9 +43,20 @@ export const Form = styled.form`
     font-size: 16px; /*tamanho da fonte */
   }
 `;
-export const SubmitButton = styled.button.attrs({
-  type:'submit'
-})`
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  } to {
+    transform: rotate(360deg);
+  }
+`;
+
+// possopegar propriedades dos componentes também
+export const SubmitButton = styled.button.attrs((props) => ({
+  type: 'submit',
+  disabled: props.loading,
+}))`
   background: #7159c1;
   border: 0;
   padding: 0 15px;
@@ -56,6 +67,19 @@ export const SubmitButton = styled.button.attrs({
   justify-content: center;
   align-items: center;
 
+  /*aqui a estilização vai ocorrer apenas quando estiver desabilitado*/
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  ${(props) =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;
 
 
